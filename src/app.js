@@ -16,6 +16,11 @@ function buscarSelecaoPorId(id) {
   return selecoes.filter((selecao) => selecao.id == id);
 }
 
+// pegar a posicao ou index do elemento no array por id
+function buscarIndexSelecao(id) {
+  return selecoes.findIndex((selecao) => selecao.id == id);
+}
+
 // rota padrão ou raiz
 app.get("/", (req, res) => {
   res.send("Curso de Node Js");
@@ -33,6 +38,12 @@ app.get("/selecoes", (req, res) => {
 app.post("/selecoes", (req, res) => {
   selecoes.push(req.body);
   res.status(201).send("Seleção cadastrada com sucesso");
+});
+
+app.delete("/selecoes/:id", (req, res) => {
+  let index = buscarIndexSelecao(req.params.id);
+  selecoes.splice(index, 1);
+  res.send(`Seleção com id ${req.params.id} excluída com sucesso!`);
 });
 
 export default app;
