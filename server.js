@@ -1,7 +1,17 @@
 import app from "./src/app.js";
 
+import conexao from "./infra/conexao.js";
+
 const PORT = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na endereço http://localhost:${PORT}`);
-});
+conexao.connect((error) => {
+  if(error) {
+    console.log(error)
+  } else {
+    console.log('Conexão realizada com sucesso!')
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na endereço http://localhost:${PORT}`);
+    });
+  }
+})
+
